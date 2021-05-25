@@ -18,9 +18,9 @@ namespace GameSharp
         }
         Random R = new Random();
         point[,] punkty = new point[20, 20];
-        private void button1_Click(object sender, EventArgs e)
+        snake wezyk = new snake();
+        public void Generategame()
         {
-          
             int row = 0;
             int column = 0;
             for (int i = 0; i < 20; i++)
@@ -31,26 +31,63 @@ namespace GameSharp
                     punkty[i, j] = new point();
                     punkty[i, j].punkt = new Panel();
 
-                   // Panel panel1 = new Panel();
+                    // Panel panel1 = new Panel();
                     punkty[i, j].punkt.Name = "panel" + column + "_" + row;
-                    punkty[i, j].punkt.BackColor = Color.FromArgb(123, R.Next(222), R.Next(222));
-                    punkty[i, j].punkt.Location = new Point(j*20, i*20);
+                    punkty[i, j].punkt.BackColor = Color.FromArgb(92, 38, 0);
+                    punkty[i, j].punkt.Location = new Point(j * 20, i * 20);
                     punkty[i, j].punkt.Size = new Size(20, 20);
                     punkty[i, j].punkt.Padding = new Padding(0);
                     punkty[i, j].punkt.Margin = new Padding(0);
                     flowLayoutPanel1.Controls.Add(punkty[i, j].punkt);
-                    column++; 
+                    column++;
                 }
                 row++;
             }
+        }
+        public void updateGame()
+        {
+            punkty[wezyk.snakesegments[0].x, wezyk.snakesegments[0].y].punkt.BackColor = Color.FromArgb(169, 173, 33);
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
 
-           
+
+            Generategame();
+            punkty[0, 0].punkt.BackColor = Color.FromArgb(169, 173, 33);
+
+
+
             //flowLayoutPanel1.Invalidate();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            punkty[0, 0].punkt.BackColor = Color.FromArgb(255, 255, 255);
+            //punkty[0, 0].punkt.BackColor = Color.FromArgb(255, 255, 255);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            punkty[wezyk.snakesegments[0].x, wezyk.snakesegments[0].y].punkt.BackColor = Color.FromArgb(92, 38, 0);
+            if (e.KeyCode == Keys.D)
+            {
+                wezyk.snakesegments[0].y = wezyk.snakesegments[0].y + 1;
+                updateGame();
+            }
+            if (e.KeyCode == Keys.S)
+            {
+                wezyk.snakesegments[0].x = wezyk.snakesegments[0].x + 1;
+                updateGame();
+            }
+            if (e.KeyCode == Keys.A)
+            {
+                wezyk.snakesegments[0].y = wezyk.snakesegments[0].y - 1;
+                updateGame();
+            }
+            if (e.KeyCode == Keys.W)
+            {
+                wezyk.snakesegments[0].x = wezyk.snakesegments[0].x -1;
+                updateGame();
+            }
         }
     }
 }

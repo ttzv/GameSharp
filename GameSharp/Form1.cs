@@ -70,23 +70,36 @@ namespace GameSharp
             punkty[wezyk.snakesegments[0].x, wezyk.snakesegments[0].y].punkt.BackColor = Color.FromArgb(92, 38, 0);
             if (e.KeyCode == Keys.D)
             {
-                wezyk.snakesegments[0].y = wezyk.snakesegments[0].y + 1;
+                if (wezyk.snakesegments[0].y <19)
+                {
+                    wezyk.snakesegments[0].y = wezyk.snakesegments[0].y + 1;
+                }
+                
                 updateGame();
             }
             if (e.KeyCode == Keys.S)
             {
-                wezyk.snakesegments[0].x = wezyk.snakesegments[0].x + 1;
+                if (wezyk.snakesegments[0].x < 19)
+                {
+                    wezyk.snakesegments[0].x = wezyk.snakesegments[0].x + 1;
+                }
                 updateGame();
             }
             if (e.KeyCode == Keys.A)
             {
-                wezyk.snakesegments[0].y = wezyk.snakesegments[0].y - 1;
+                if (wezyk.snakesegments[0].y > 0)
+                {
+                    wezyk.snakesegments[0].y = wezyk.snakesegments[0].y - 1;
+                }
                 updateGame();
             }
             if (e.KeyCode == Keys.W)
             {
-                wezyk.snakesegments[0].x = wezyk.snakesegments[0].x -1;
-                updateGame();
+                if (wezyk.snakesegments[0].x > 0)
+                {
+                    wezyk.snakesegments[0].x = wezyk.snakesegments[0].x - 1;
+                }
+                    updateGame();
             }
         }
     }

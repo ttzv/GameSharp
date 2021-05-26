@@ -9,6 +9,10 @@ namespace GameSharp
     class point
     {
         public Panel punkt;
+        public point()
+        {
+            punkt = new Panel();
+        }
 
     }
 }

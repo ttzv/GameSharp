@@ -12,22 +12,28 @@ namespace GameSharp
 {
     public partial class Form1 : Form
     {
+        private GameMap gameMap;
+        private snake wezyk;
+        private string direction;
+        private System.Timers.Timer timer;
         public Form1()
         {
             InitializeComponent();
+            direction = "right";
+            wezyk = new snake();
+            timer = new System.Timers.Timer();
         }
 
-        string direction = "right";
-        Random R = new Random();
-        point[,] punkty = new point[20, 20];
-        snake wezyk = new snake();
+        public void Generategame()
+        {
+            this.gameMap = new GameMap(flowLayoutPanel1);
+            this.gameMap.Draw(20, 20);
+        }
 
 
-        public System.Timers.Timer timer = new System.Timers.Timer();
-       
         public void move(object source, System.Timers.ElapsedEventArgs e)
         {
-            punkty[wezyk.snakesegments[0].y, wezyk.snakesegments[0].x].punkt.BackColor = Color.FromArgb(92, 38, 0);
+            this.gameMap.Punkty[wezyk.snakesegments[0].y, wezyk.snakesegments[0].x].punkt.BackColor = Color.FromArgb(92, 38, 0);
 
             if (direction == "right")
             {
@@ -82,42 +88,18 @@ namespace GameSharp
             }
             updateGame();
         }
-        public void Generategame()
-        {
-           
-            for (int i = 0; i < 20; i++)
-            {
-               
-                for (int j = 0; j < 20; j++)
-                {
-                    punkty[i, j] = new point();
-                    punkty[i, j].punkt = new Panel();
-
-                    // Panel panel1 = new Panel();
-                    punkty[i, j].punkt.Name = "panel" + j + "_" + i;
-                    punkty[i, j].punkt.BackColor = Color.FromArgb(92, 38, 0);
-                    punkty[i, j].punkt.Location = new Point(j * 20, i * 20);
-                    punkty[i, j].punkt.Size = new Size(20, 20);
-                    punkty[i, j].punkt.Padding = new Padding(0);
-                    punkty[i, j].punkt.Margin = new Padding(0);
-                    flowLayoutPanel1.Controls.Add(punkty[i, j].punkt);
-                   
-                }
-            
-            }
-         
-        }
+        
 
         public void updateGame()
         {
-            punkty[wezyk.snakesegments[0].y, wezyk.snakesegments[0].x].punkt.BackColor = Color.FromArgb(169, 173, 33);
+            this.gameMap.Punkty[wezyk.snakesegments[0].y, wezyk.snakesegments[0].x].punkt.BackColor = Color.FromArgb(169, 173, 33);
         }
         private void button1_Click(object sender, EventArgs e)
         {
 
 
             Generategame();
-            punkty[0, 0].punkt.BackColor = Color.FromArgb(169, 173, 33);
+            this.gameMap.Punkty[0, 0].punkt.BackColor = Color.FromArgb(169, 173, 33);
 
 
 
@@ -135,7 +117,7 @@ namespace GameSharp
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            punkty[wezyk.snakesegments[0].x, wezyk.snakesegments[0].y].punkt.BackColor = Color.FromArgb(92, 38, 0);
+            this.gameMap.Punkty[wezyk.snakesegments[0].x, wezyk.snakesegments[0].y].punkt.BackColor = Color.FromArgb(92, 38, 0);
             if (e.KeyCode == Keys.D)
             {
 
@@ -168,7 +150,7 @@ namespace GameSharp
                 {
                     direction = "up";
                 }
-                   // updateGame();
+                //updateGame();
             }
         }
     }

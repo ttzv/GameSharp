@@ -16,22 +16,31 @@ namespace GameSharp
         private snake wezyk;
         private string direction;
         private System.Timers.Timer timer;
+        private System.Timers.Timer foodtimer;
         public Form1()
         {
             InitializeComponent();
             direction = "right";
             wezyk = new snake();
             timer = new System.Timers.Timer();
+            foodtimer = new System.Timers.Timer();
         }
 
         public void Generategame()
         {
             this.gameMap = new GameMap(flowLayoutPanel1);
             this.gameMap.Draw(20, 20);
+            this.gameMap.GenerateFood();
+            this.gameMap.DrawFood();
+
+        }
+        public void newFood(object source, System.Timers.ElapsedEventArgs e)
+        {
+            this.gameMap.NextFoodLayout();
         }
 
 
-        public void move(object source, System.Timers.ElapsedEventArgs e)
+            public void move(object source, System.Timers.ElapsedEventArgs e)
         {
             this.gameMap.Punkty[wezyk.snakesegments[0].y, wezyk.snakesegments[0].x].punkt.BackColor = Color.FromArgb(92, 38, 0);
 
@@ -113,6 +122,10 @@ namespace GameSharp
             timer.Elapsed += move;          
             timer.AutoReset = true;
             timer.Enabled = true;
+            foodtimer.Interval = 10000;
+            foodtimer.Elapsed += newFood;
+            foodtimer.AutoReset = true;
+            foodtimer.Enabled = true;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)

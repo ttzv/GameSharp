@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace GameSharp
@@ -12,11 +13,42 @@ namespace GameSharp
     {
         private FlowLayoutPanel canvas;
         public point[,] Punkty { get; set; }
+
+        public SnakeFood[] food { get; set; }
         public GameMap( FlowLayoutPanel canvas )
         {
             this.canvas = canvas;
         }
-
+        public Random rand=new Random ();
+        public void GenerateFood()
+        {
+            food = new SnakeFood[5];
+            for (int i = 0; i < 5; i++)
+            {
+                food[i] = new SnakeFood(rand.Next(20), rand.Next(20));
+                
+            }
+        }
+        public void NextFoodLayout()
+        {
+            ClearFood();
+            GenerateFood();
+            DrawFood();
+        }
+        public void DrawFood()
+        {
+            for (int i = 0; i < food.Length; i++)
+            {
+                Punkty[food[i].x, food[i].y].punkt.BackColor = Color.FromArgb(158, 0, 16);
+            }
+        }
+        public void ClearFood()
+        {
+            for (int i = 0; i < food.Length; i++)
+            {
+                Punkty[food[i].x, food[i].y].punkt.BackColor = Color.FromArgb(92, 38, 0);
+            }
+        }
         public void Draw(int width, int height)
         {
             Punkty = new point[width, height];
@@ -37,5 +69,6 @@ namespace GameSharp
             }
         }
 
+       
     }
 }

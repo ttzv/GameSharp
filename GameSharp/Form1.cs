@@ -13,6 +13,8 @@ namespace GameSharp
 {
     public partial class Form1 : Form
     {
+        private readonly int BaseGameSpeed = 700;
+        private int score = 0;
         private GameMap gameMap;
         private snake wezyk;
         private string direction;
@@ -26,7 +28,15 @@ namespace GameSharp
 
             direction = "right";
             wezyk = new snake();
-            wezyk.speedTimer = timer;
+            wezyk.AppleEaten += Wezyk_AppleEaten;
+
+        }
+
+        private void Wezyk_AppleEaten(object sender, EventArgs e)
+        {
+            score += 1;
+            UpdateScore( score.ToString() );
+            timer.Interval = BaseGameSpeed - wezyk.speed;
         }
 
         public void Generategame()
@@ -171,6 +181,20 @@ namespace GameSharp
                     direction = "up";
                 }
                 //updateGame();
+            }
+        }
+
+        private delegate void SafeCallDelegate(string text);
+        private void UpdateScore(string score)
+        {
+            if (label_score.InvokeRequired)
+            {
+                var d = new SafeCallDelegate(UpdateScore);
+                label_score.Invoke(d, new object[] { score });
+            }
+            else
+            {
+                label_score.Text = score;
             }
         }
 

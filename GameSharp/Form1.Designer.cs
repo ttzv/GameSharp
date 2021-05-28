@@ -34,6 +34,7 @@ namespace GameSharp
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label_score = new System.Windows.Forms.Label();
+            this.worker_score = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -79,8 +80,9 @@ namespace GameSharp
             this.label_score.ForeColor = System.Drawing.Color.Red;
             this.label_score.Location = new System.Drawing.Point(598, 127);
             this.label_score.Name = "label_score";
-            this.label_score.Size = new System.Drawing.Size(0, 13);
+            this.label_score.Size = new System.Drawing.Size(13, 13);
             this.label_score.TabIndex = 4;
+            this.label_score.Text = "0";
             // 
             // Form1
             // 
@@ -108,6 +110,7 @@ namespace GameSharp
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label_score;
+        private System.ComponentModel.BackgroundWorker worker_score;
     }
 }
 

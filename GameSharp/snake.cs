@@ -8,9 +8,9 @@ namespace GameSharp
 {
     class snake
     {
-        private readonly int SpeedStep = 25;
+        public int speed = 0;
+        private readonly int SpeedUpStep = 25;
         public SnakeElemement[] snakebody;
-        public System.Timers.Timer speedTimer { get; set; }
         
         public snake()
         {
@@ -73,10 +73,20 @@ namespace GameSharp
             }
             tempsnakebody[0] = first;
             snakebody = tempsnakebody;
-            speedTimer.Interval = speedTimer.Interval - SpeedStep;
+            speed += SpeedUpStep;
+            OnAppleEat(EventArgs.Empty);
+        }
 
-        
-    }
+        protected virtual void OnAppleEat(EventArgs e)
+        {
+            EventHandler handler = AppleEaten;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        public event EventHandler AppleEaten;
 
     }
 }

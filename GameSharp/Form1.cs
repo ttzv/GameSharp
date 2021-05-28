@@ -42,49 +42,49 @@ namespace GameSharp
 
             public void move(object source, System.Timers.ElapsedEventArgs e)
         {
-            this.gameMap.Punkty[wezyk.snakesegments[0].y, wezyk.snakesegments[0].x].punkt.BackColor = Color.FromArgb(92, 38, 0);
+            this.gameMap.Punkty[wezyk.snakebody[0].y, wezyk.snakebody[0].x].punkt.BackColor = Color.FromArgb(92, 38, 0);
 
             if (direction == "right")
             {
-                if (wezyk.snakesegments[0].x == 19)
+                if (wezyk.snakebody[wezyk.snakebody.Length-1].x == 19)
                 {
                     timer.Stop();
                     MessageBox.Show("Koniec gry");
                 }
                 else
                 {
-                    wezyk.snakesegments[0].x = wezyk.snakesegments[0].x + 1;
+                    wezyk.snakemove(direction,gameMap.food);
                 }
                 
             }
             if (direction == "left")
             {
-                if (wezyk.snakesegments[0].x == 0)
+                if (wezyk.snakebody[wezyk.snakebody.Length-1].x == 0)
                 {
                     timer.Stop();
                     MessageBox.Show("Koniec gry");
                 }
                 else
                 {
-                    wezyk.snakesegments[0].x = wezyk.snakesegments[0].x - 1;
+                    wezyk.snakemove(direction, gameMap.food);
                 }
             }
             if (direction == "down")
             {
-                if (wezyk.snakesegments[0].y == 19)
+                if (wezyk.snakebody[wezyk.snakebody.Length-1].y == 19)
                 {
                     timer.Stop();
                     MessageBox.Show("Koniec gry");
                 }
                 else
                 {
-                    wezyk.snakesegments[0].y = wezyk.snakesegments[0].y + 1;
+                    wezyk.snakemove(direction, gameMap.food);
                 }
             }
             if (direction == "up")
 
             {
-                if (wezyk.snakesegments[0].y == 0)
+                if (wezyk.snakebody[wezyk.snakebody.Length-1].y == 0)
                 {
                    
                     timer.Stop();
@@ -92,7 +92,7 @@ namespace GameSharp
                 }
                 else
                 {
-                    wezyk.snakesegments[0].y = wezyk.snakesegments[0].y - 1;
+                    wezyk.snakemove(direction, gameMap.food);
                 }
             }
             updateGame();
@@ -101,7 +101,11 @@ namespace GameSharp
 
         public void updateGame()
         {
-            this.gameMap.Punkty[wezyk.snakesegments[0].y, wezyk.snakesegments[0].x].punkt.BackColor = Color.FromArgb(169, 173, 33);
+            for (int i = 0; i < wezyk.snakebody.Length; i++)
+            {
+                this.gameMap.Punkty[wezyk.snakebody[i].y, wezyk.snakebody[i].x].punkt.BackColor = Color.FromArgb(169, 173, 33);
+            }
+           // this.gameMap.Punkty[wezyk.snakebody[0].y, wezyk.snakebody[0].x].punkt.BackColor = Color.FromArgb(169, 173, 33);
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -130,11 +134,11 @@ namespace GameSharp
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            this.gameMap.Punkty[wezyk.snakesegments[0].x, wezyk.snakesegments[0].y].punkt.BackColor = Color.FromArgb(92, 38, 0);
+            this.gameMap.Punkty[wezyk.snakebody[0].y, wezyk.snakebody[0].x].punkt.BackColor = Color.FromArgb(92, 38, 0);
             if (e.KeyCode == Keys.D)
             {
 
-                if (wezyk.snakesegments[0].y < 19 && direction != "left")
+                if (wezyk.snakebody[0].x < 19 && direction != "left")
                 {
                     direction = "right";
                 }
@@ -143,7 +147,7 @@ namespace GameSharp
             }
             if (e.KeyCode == Keys.S && direction != "up")
             {
-                if (wezyk.snakesegments[0].x < 19)
+                if (wezyk.snakebody[0].y < 19)
                 {
                     direction = "down";
                 }
@@ -151,7 +155,7 @@ namespace GameSharp
             }
             if (e.KeyCode == Keys.A && direction !="right")
             {
-                if (wezyk.snakesegments[0].y > 0)
+                if (wezyk.snakebody[0].x > 0)
                 {
                     direction = "left";
                 }
@@ -159,7 +163,7 @@ namespace GameSharp
             }
             if (e.KeyCode == Keys.W && direction != "down")
             {
-                if (wezyk.snakesegments[0].x > 0)
+                if (wezyk.snakebody[0].y > 0)
                 {
                     direction = "up";
                 }

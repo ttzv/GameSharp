@@ -39,14 +39,14 @@ namespace GameSharp
         {
             for (int i = 0; i < food.Length; i++)
             {
-                Punkty[food[i].x, food[i].y].punkt.BackColor = Color.FromArgb(158, 0, 16);
+                Punkty[food[i].y, food[i].x].punkt.BackColor = Color.FromArgb(158, 0, 16);
             }
         }
         public void ClearFood()
         {
             for (int i = 0; i < food.Length; i++)
             {
-                Punkty[food[i].x, food[i].y].punkt.BackColor = Color.FromArgb(92, 38, 0);
+                Punkty[food[i].y, food[i].x].punkt.BackColor = Color.FromArgb(92, 38, 0);
             }
         }
         public void Draw(int width, int height)

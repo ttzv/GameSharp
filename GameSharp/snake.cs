@@ -8,7 +8,9 @@ namespace GameSharp
 {
     class snake
     {
+        private readonly int SpeedStep = 25;
         public SnakeElemement[] snakebody;
+        public System.Timers.Timer speedTimer { get; set; }
         
         public snake()
         {
@@ -71,6 +73,7 @@ namespace GameSharp
             }
             tempsnakebody[0] = first;
             snakebody = tempsnakebody;
+            speedTimer.Interval = speedTimer.Interval - SpeedStep;
 
         
     }

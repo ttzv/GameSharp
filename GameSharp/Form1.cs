@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timer = System.Timers.Timer;
 
 namespace GameSharp
 {
@@ -15,15 +16,17 @@ namespace GameSharp
         private GameMap gameMap;
         private snake wezyk;
         private string direction;
-        private System.Timers.Timer timer;
-        private System.Timers.Timer foodtimer;
+        private Timer timer;
+        private Timer foodtimer;
         public Form1()
         {
             InitializeComponent();
+            timer = new Timer();
+            foodtimer = new Timer();
+
             direction = "right";
             wezyk = new snake();
-            timer = new System.Timers.Timer();
-            foodtimer = new System.Timers.Timer();
+            wezyk.speedTimer = timer;
         }
 
         public void Generategame()
@@ -170,5 +173,6 @@ namespace GameSharp
                 //updateGame();
             }
         }
+
     }
 }
